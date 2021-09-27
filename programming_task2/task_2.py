@@ -1,52 +1,72 @@
-while True:
-    try:
-        processButton = int(input("Press a button whether you want to proceed "))
-        if processButton == 1:
-            def inputMatrix(rows, columns):
-                if rows == columns:
-                    matrix = []
-                    for i in range(rows):
-                        temp = []
-                        for j in range(columns):
-                            value = int(input("Enter a value "))
-                            temp.append(value)
-                        matrix.append(temp)
-                    return matrix
+def menu():
+    while True:
+        pressed_button = input("Press a proper key button whether you want to proceed ")
+        pressedButton = validate(pressed_button)
+        if pressedButton != None:
+            if pressedButton == 1:
+                number = input("Enter a number of rows and columns ")
+                numberValidation = validate(number)
+                if numberValidation != None:
+                    matrix = inputMatrix(numberValidation)
+                    result = checkPalindromeRows(matrix)
+                    print(result)
                 else:
-                    print("Rows and columns don't match, it should have been a square matrix")
-
-
-            def checkPalindromRows(matrix_):
-                length = len(matrix_)
-                flag = False
-                result = []
-                for i in range(length):
-                    for j in range(length):
-                        if matrix_[i][j] == matrix_[i][length - j - 1]:
-                            flag = True
-                        else:
-                            flag = False
-                    if flag:
-                        result.append(i)
-                return result
-
-            rows_ = int(input("Enter rows "))
-            columns_ = int(input("Enter columns "))
-            matrixx = inputMatrix(rows_, columns_)
-            result_ = checkPalindromRows(matrixx)
-            if not result_:
-                print("There was an error, resulting matrix == [], cannot proceed")
+                    print('An invalid type was printed')
+                    continue
+            elif pressedButton == 0:
+                handleProgramExit()
+                break
             else:
-                print(result_)
-        elif processButton == 0:
-            print("End of program")
-            break
+                handleUnknownInput()
+                break
         else:
-            print("Unknown button was pressed, end of program")
+            handleUnknownInput()
             break
-    except ValueError:
-        print("It should be an integer, try again")
-    except TypeError:
-        print("Cannot calculate length from non-square matrix")
-    except KeyboardInterrupt:
-        print("There was an error, please, start again")
+
+
+def handleProgramExit():
+    print("End of the program.")
+    return
+
+
+def handleUnknownInput():
+    print("Unknown button was pressed. End of the program.")
+    return
+
+
+def inputMatrix(number):
+    matrix = []
+    for i in range(number):
+        temp = []
+        for j in range(number):
+            value = input("Enter a value ")
+            valueValidation = validate(value)
+            if valueValidation != None:
+                temp.append(valueValidation)
+            else:
+                print('An invalid type was printed, cannot proceed')
+                return []
+        matrix.append(temp)
+    return matrix
+
+
+def checkPalindromeRows(matrix):
+    length = len(matrix)
+    flag = False
+    result = []
+    for i in range(length):
+        for j in range(length):
+            if matrix[i][j] == matrix[i][length - j - 1]:
+                flag = True
+            else:
+                flag = False
+        if flag:
+            result.append(i)
+    return result
+
+
+def validate(input):
+    result = int(input) if input.isnumeric() else None
+    return result
+
+menu()
