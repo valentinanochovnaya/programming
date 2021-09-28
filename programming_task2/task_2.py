@@ -2,26 +2,34 @@ def menu():
     while True:
         pressed_button = input("Press a proper key button whether you want to proceed ")
         pressedButton = validate(pressed_button)
-        if pressedButton != None:
-            if pressedButton == 1:
-                number = input("Enter a number of rows and columns ")
-                numberValidation = validate(number)
-                if numberValidation != None:
-                    matrix = inputMatrix(numberValidation)
-                    result = checkPalindromeRows(matrix)
-                    print(result)
-                else:
-                    print('An invalid type was printed')
-                    continue
-            elif pressedButton == 0:
-                handleProgramExit()
-                break
-            else:
-                handleUnknownInput()
-                break
+        if pressedButton == 1:
+            mainProgram()
+        elif pressedButton == 0:
+            handleProgramExit()
+            break
+        elif pressedButton is None:
+            print('An invalid type was printed')
+            continue
         else:
             handleUnknownInput()
             break
+
+
+def handleNone(value):
+    return False if value is None else True
+
+
+def mainProgram():
+    number = input("Enter a number of rows and columns ")
+    number_ = validate(number)
+    handleNone(number_)
+    if not handleNone(number_):
+        print('An invalid type was printed')
+    else:
+        matrix = inputMatrix(number_)
+        result = checkPalindromeRows(matrix)
+        print(result)
+    return
 
 
 def handleProgramExit():
@@ -41,7 +49,7 @@ def inputMatrix(number):
         for j in range(number):
             value = input("Enter a value ")
             valueValidation = validate(value)
-            if valueValidation != None:
+            if valueValidation is not None:
                 temp.append(valueValidation)
             else:
                 print('An invalid type was printed, cannot proceed')
@@ -65,8 +73,8 @@ def checkPalindromeRows(matrix):
     return result
 
 
-def validate(input):
-    result = int(input) if input.isnumeric() else None
+def validate(input_value):
+    result = int(input_value) if input_value.isnumeric() else None
     return result
 
 menu()
