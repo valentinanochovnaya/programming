@@ -80,7 +80,8 @@ class Validator:
         return path
 
     @staticmethod
-    def is_exist(ids, id):
-        if int(id) in ids:
-            raise IdAlreadyExistsError()
+    def is_exist(list_of_elements, id):
+        for element in list_of_elements:
+            if element.ID == int(id):
+                raise IdAlreadyExistsError()
         return int(id)

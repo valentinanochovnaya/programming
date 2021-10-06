@@ -1,18 +1,18 @@
 from validator import Validator
-from operator import itemgetter
+from file_manager import FileManager
 
 
 class Freelancer:
 
     def __init__(self, ID=None, name=None, email=None, phone_number=None, availability=None, salary=None,
                  position=None):
-        self.ID = None if ID is None else Validator.validate_number(ID)
-        self.name = None if name is None else Validator.validate_name(name)
-        self.email = None if email is None else Validator.validate_email(email)
-        self.phone_number = None if phone_number is None else Validator.validate_phone_number(phone_number)
-        self.availability = None if availability is None else Validator.validate_availability(availability)
-        self.salary = None if salary is None else Validator.validate_number(salary)
-        self.position = None if position is None else Validator.validate_position(position)
+        self.ID = ID
+        self.name = name
+        self.email = email
+        self.phone_number = phone_number
+        self.availability = availability
+        self.salary = salary
+        self.position = position
 
     def __str__(self):
         freelancer = "\n"
@@ -29,7 +29,6 @@ class Freelancer:
 
 class FreelancerContainer:
     list_of_elements = []
-    list_of_ids = []
 
     def __init__(self):
         pass
@@ -44,43 +43,16 @@ class FreelancerContainer:
         return self.list_of_elements[item]
 
     def append(self, value):
-        if not isinstance(value, Freelancer):
-            return
-        self.append_id(value.ID)
         self.list_of_elements.append(value)
 
-    def append_id(self, ID):
-        ID = int(ID)
-        if ID in self.list_of_ids:
-            return
-        self.list_of_ids.append(ID)
-
     def read_from_file(self, file_name):
-        self.list_of_ids.clear()
-        self.list_of_elements.clear()
-        file = open(file_name)
-        freelancer = Freelancer()
-        for line in file:
-            if line == '---\n':
-                self.list_of_elements.append(freelancer)
-                freelancer = Freelancer()
-                continue
-            line_input = line.split(':')
-            freelancer.__setattr__(line_input[0].strip(),
-                                   Validator.choose_validate_function(line_input[0].strip(), line_input[1].strip()))
-            if line_input[0].strip() == 'ID':
-                self.append_id(line_input[1].strip())
-        file.close()
+        freelancers = FileManager.read_from_file(file_name)
+        for element in freelancers:
+            self.list_of_elements.append(element)
 
     def add_element(self, file_name, element):
-        file = open(file_name, mode='a')
-        string = ''
-        for key, value in element.items():
-            string += str(key) + ' : ' + str(value) + '\n'
-        file.write(string)
-        file.write('---\n')
-        file.close()
-        self.append(element)
+        FileManager.add_element(file_name, element)
+        self.append(Freelancer(element))
 
     @staticmethod
     def element_to_dict(element):
@@ -124,4 +96,3 @@ class FreelancerContainer:
 
     def clear_list(self):
         self.list_of_elements.clear()
-        self.list_of_ids.clear()

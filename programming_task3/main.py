@@ -6,7 +6,7 @@ container = freelancer_class.FreelancerContainer()
 
 def menu_choose_file():
     option = input('Print another file to choose a file or print def for default ')
-    if option == 'another file':
+    if option == 'another':
         print('Enter a file name: ')
         file_name = input()
         return file_name
@@ -41,7 +41,7 @@ def menu_add():
     try:
         file_name = menu_choose_file()
         id = input('Enter an id: ')
-        Validator.validate_number(Validator.is_exist(container.list_of_ids, id))
+        Validator.validate_number(Validator.is_exist(container.list_of_elements, id))
         name = Validator.validate_name(input('Enter a name: '))
         email = Validator.validate_email(input('Enter an email: '))
         phone_number = Validator.validate_phone_number(input('Enter a phone number: '))
@@ -128,6 +128,7 @@ def menu():
               ' clear \n' \
               ' exit \n'
     while True:
+        print(message)
         option = input('Choose an option to perform: ')
         try:
             if option:
