@@ -1,6 +1,7 @@
 import freelancer_class
 from freelancer_class import *
 from validator import Validator
+from custom_exeptions import AllErrors
 
 
 class FileManager:
@@ -19,7 +20,10 @@ class FileManager:
                                    Validator.choose_validate_function(line_input[0].strip(), line_input[1].strip()))
 
         file.close()
-        return freelancers
+        if AllErrors.list_of_custom_erros:
+            raise AllErrors()
+        else:
+            return freelancers
 
     @staticmethod
     def add_element(file_name, element):

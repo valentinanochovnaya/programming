@@ -21,20 +21,9 @@ def menu_read_data():
         container.read_from_file(file_name)
         print(container)
         return container
-    except InvalidNameError:
-        print('Name should not contain numbers')
-    except InvalidEmailError:
-        print('An invalid email was printed')
-    except InvalidPhoneNumberError:
-        print('An invalid phone number was printed')
-    except ValueError:
-        print('An invalid type was printed. Should be a number')
-    except NotRecognizablePositionError:
-        print('There is not such position')
-    except AvailabilityError:
-        print('A freelancer cannot work more than 40 hrs per week')
-    except FilePathError:
-        print('File does not exist')
+    except AllErrors:
+        for i in AllErrors.list_of_custom_erros:
+            print(i.message)
 
 
 def menu_add():

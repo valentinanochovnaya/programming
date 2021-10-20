@@ -1,24 +1,15 @@
-ID : 4
-name : Nana
-email : Nana@nana.com
+ID : da4
+name : Na12na
+email : Nananana.com
 phone_number : +380950520263
-availability : 10
+availability : 5
 salary : 5000
-position : BE Developer
+position : Developer
 ---
 ID : 5
-name : Anthony
-email : Anthony@lola.gmail.com
-phone_number : +380978743821
-availability : 4
-salary : 2000
+name : Lo2la
+email : Lola@l.com
+phone_number : 380950520263
+availability : 15
+salary : 5000
 position : FE Developer
----
-ID : 6
-name : Keira
-email : Keira@lola.com
-phone_number : +38095747383
-availability : 5
-salary : 4000
-position : DevOps
----

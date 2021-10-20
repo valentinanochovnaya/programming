@@ -28,7 +28,7 @@ class Validator:
     def validate_number(value):
         number_str = str(value)
         if not number_str.isnumeric():
-            raise ValueError()
+            return AllErrors().collect_error('number')
         return int(number_str)
 
     @staticmethod
@@ -43,12 +43,12 @@ class Validator:
         if is_valid:
             return phone_number
         else:
-            raise InvalidPhoneNumberError()
+            return AllErrors().collect_error('phone')
 
     @staticmethod
     def validate_email(email):
         if not re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', email):
-            raise InvalidEmailError()
+            return AllErrors().collect_error('email')
         return email
 
     @staticmethod
@@ -57,31 +57,25 @@ class Validator:
         if position in position_list:
             return position
         else:
-            raise NotRecognizablePositionError()
+            return AllErrors().collect_error('position')
 
     @staticmethod
     def validate_name(name):
         if any(char.isdigit() for char in name):
-            raise InvalidNameError()
+            return AllErrors().collect_error('name')
         return name
 
     @staticmethod
     def validate_availability(availability):
         all_hrs = 40
         if int(availability) > all_hrs:
-            raise AvailabilityError()
+            return AllErrors().collect_error('avail')
         else:
             return availability
-
-    @staticmethod
-    def validate_file_path(path):
-        if not os.path.exists(str(path)):
-            raise FilePathError()
-        return path
 
     @staticmethod
     def is_exist(list_of_elements, id):
         for element in list_of_elements:
             if element.ID == int(id):
-                raise IdAlreadyExistsError()
+                return AllErrors().collect_error('id')
         return int(id)
