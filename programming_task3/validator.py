@@ -8,21 +8,20 @@ class Validator:
         pass
 
     @classmethod
-    def choose_validate_function(cls, key_, value):
-        if key_ == 'ID' or key_ == 'salary':
-            return cls.validate_number(value)
-        elif key_ == 'name':
-            return cls.validate_name(value)
-        elif key_ == 'email':
-            return cls.validate_email(value)
-        elif key_ == 'availability':
-            return cls.validate_availability(value)
-        elif key_ == 'position':
-            return cls.validate_position(value)
-        elif key_ == 'phone_number':
-            return cls.validate_phone_number(value)
-        else:
-            raise ValueError('Unexpected key')
+    def choose_validate_function(cls, key_, value_):
+        validate_dict = {
+            'ID': cls.validate_number,
+            'name': cls.validate_name,
+            'email': cls.validate_email,
+            'availability': cls.validate_availability,
+            'phone_number': cls.validate_phone_number,
+            'salary': cls.validate_number,
+            'position': cls.validate_position
+        }
+
+        for key, value in validate_dict.items():
+            if key == key_:
+                return validate_dict[key_](value_)
 
     @staticmethod
     def validate_number(value):
