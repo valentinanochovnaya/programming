@@ -1,0 +1,21 @@
+ID : 1
+username : Nana
+budget : 400.2
+start_date : 2020-01-01
+end_date : 2020-01-22
+city : Paris
+---
+ID : 2
+username : Lola
+budget : 300.2
+start_date : 2020-01-01
+end_date : 2020-01-22
+city : Rome
+---
+ID : 3
+username : Kevin
+budget : 200.2
+start_date : 2020-01-01
+end_date : 2020-01-22
+city : Naples
+---
